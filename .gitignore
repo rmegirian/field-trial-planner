@@ -1,0 +1,22 @@
+# R ---------------------------------------------------------------------------
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+*.Rproj
+renv/library/
+renv/staging/
+
+# Local configuration and working files ----------------------------------------
+inst/config/local/
+docs/
+
+# Rendered output --------------------------------------------------------------
+*_files/
+*.html
+!inst/report/*.html
+
+# OS ---------------------------------------------------------------------------
+.DS_Store
+Thumbs.db
+~$*

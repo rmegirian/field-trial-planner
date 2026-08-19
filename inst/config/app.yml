@@ -1,0 +1,41 @@
+# Names, wording and thresholds -------------------------------------------------
+# To change any of this for a particular deployment, put a file of the same name
+# in inst/config/local/ restating only the keys you want different.
+
+app_name: Field Trial Planner
+tagline: Plan the design before the season starts
+
+# Shown on the landing page.
+intro: >
+  This tool walks through the decisions that determine what a field experiment
+  can and cannot tell you: what the trial is for, what is varied, what is
+  measured, how much it is replicated, and which questions the resulting data
+  can actually answer. It is a planning aid and a teaching aid at the same time,
+  so each section explains why the information matters, not just what to enter.
+
+# Stated plainly because it is a design commitment, not a footnote: the app
+# holds nothing after the browser tab closes.
+privacy_note: >
+  Nothing you enter is stored. The app keeps your answers in the browser session
+  only, and they leave solely as the files you download. Closing the tab discards
+  them, so download your plan before you finish.
+
+# What the download is called, and what the user is told to do with it.
+export_basename: field_trial_plan
+export_instruction: >
+  Download your plan as a CSV and keep it. Dragging the same file back into this
+  app restores everything you entered, so it is also how you save your progress
+  and revise the plan as the trial takes shape.
+
+# Rule of thumb used by the replication calculator. Widely taught, but stated
+# here rather than hardcoded so it can be argued with.
+min_error_df: 15
+min_error_df_note: >
+  A common rule of thumb is to aim for at least 15 residual degrees of freedom,
+  which is roughly where the t-distribution stops penalising small samples
+  sharply. It is guidance, not a threshold to satisfy for its own sake.
+
+theme:
+  primary: "#3d6b52"
+  secondary: "#8a7a5c"
+  base_font: system-ui

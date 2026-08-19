@@ -1,0 +1,197 @@
+# Teaching copy ----------------------------------------------------------------
+#
+# This file is the teaching half of the tool. It is data rather than R strings so
+# that whoever owns the wording can revise it without touching code.
+
+intro:
+  why_iterative: >
+    Different trial aims require different considerations in the overall design
+    of an experiment. Rather than being a set of independent decisions, the
+    research questions, treatments, measurements, replication, layout and
+    analysis are interconnected, shaping and constraining one another. They are
+    separated into sections here to make a complex task easier to work through,
+    but a decision in one area can change what is possible or appropriate in
+    another.
+  expect_to_revisit: >
+    As you work through each section you may find that a decision you have
+    already made needs reconsidering in light of a later one. This is normal.
+    Experimental design is less about making good or bad decisions in isolation
+    than about considering them together, refining them as you understand how
+    they shape one another. The goal is to balance what you want to learn against
+    what can realistically and reliably be tested, so that the resulting data can
+    support the analyses needed to answer your questions.
+  incomplete_is_fine: >
+    It is not expected that everything will be known at the outset. If something
+    is still being developed or genuinely undecided, leave it blank or add a
+    note. A plan with gaps in it is still useful: the gaps show you where the
+    design is not yet settled, which is exactly what you want to know early.
+
+project:
+  objective_matters: >
+    The project objective is the standard every other decision is judged against.
+    It tells us what a successful outcome looks like, and it is what we come back
+    to when a design decision involves a trade-off.
+
+trials:
+  what_is_a_trial: >
+    A project may contain several trials that each contribute to the overall
+    objective. Each trial has its own aim describing what that specific trial is
+    intended to understand. The trial aim is the foundation for the treatment
+    structure, measurements, research questions and analysis approach that follow.
+  aim_quality: >
+    A good trial aim describes the effect or relationship being examined and the
+    key factors central to it. "To determine the nitrogen rate required to
+    maximise wheat yield and grain protein under different seasonal conditions"
+    is an aim. "To investigate nitrogen" is not, because it does not say what
+    would count as an answer.
+  when_to_split: >
+    Create a separate trial when the investigation requires a different treatment
+    structure or different experimental units (plots, paddocks, plants) - not
+    simply because it involves additional questions, measurements, locations or
+    years. A single trial can address several questions and carry extra
+    measurements from the same plots. Record additional measurements as responses
+    and additional questions in the question builder rather than duplicating the
+    trial.
+  multiple_environments: >
+    A trial can be implemented across multiple locations and years. Record the
+    trial once, and record each site-by-year implementation separately.
+
+factors:
+  what_is_a_factor: >
+    A factor is something you deliberately vary between treatments in order to
+    investigate its effect. If you are investigating nitrogen application rate,
+    nitrogen rate is the factor. The levels of a factor are the specific values
+    or options being compared, such as 0, 30 and 60 kg N/ha.
+  what_is_a_treatment: >
+    A treatment is the combination of factor levels applied to an experimental
+    unit. If a trial has nitrogen rate at 0, 30 and 60 kg N/ha and variety A or
+    B, there are 3 x 2 = 6 treatment combinations. When there is only one factor,
+    each level is a treatment.
+  compound_factors: >
+    If two or more things are always applied together as a package and you are
+    only interested in the effect of the package, record them as a single factor
+    with each package as a level. If Product A is always applied early and
+    Product B always late, record one factor such as "product and timing
+    package". Because product and timing always change together, their individual
+    effects cannot be separated. If you do want the individual effects, they must
+    be varied independently, with each product tested at each timing.
+  keep_it_manageable: >
+    Each additional factor multiplies the number of treatment combinations. One
+    factor with 4 levels gives 4 treatments; two factors with 4 and 3 levels give
+    12; three factors with 4, 3 and 2 levels give 24. Where every treatment has
+    the same replication, plots required is treatments multiplied by replicates,
+    so 24 treatments at 4 replicates needs 96 plots. Consider replication before
+    adding factors or levels.
+  describing_levels: >
+    Describe each level fully enough that someone else could implement it:
+    product, rate and timing where relevant. Be specific about controls - "nil
+    applied" and "usual grower practice" are different things and are not
+    interchangeable.
+  how_many_levels: >
+    The number of levels determines what you can learn about the shape of a
+    response, not just whether a difference exists. Two levels can only show a
+    difference between them. Three or more let you see whether the response
+    curves. Four or five can help estimate where a response levels off or reaches
+    an optimum.
+  level_spacing: >
+    Levels do not need to be evenly spaced, and it is often better to concentrate
+    them where the response is expected to change most. What matters is that the
+    range covers the region of interest: if you want to know the optimum rate,
+    the levels need to bracket it rather than sit entirely on one side of it.
+
+replication:
+  why_it_matters: >
+    Replication is what makes an effect estimable. Without it there is no measure
+    of background variation to compare a treatment difference against, so no way
+    to tell a real effect from noise.
+  degrees_of_freedom: >
+    Residual degrees of freedom are the currency here. In a randomised complete
+    block design with t treatments and r replicates, the residual carries
+    (t - 1) x (r - 1) degrees of freedom. Few residual degrees of freedom means a
+    poorly estimated error term, wide intervals, and little power to detect
+    anything but very large effects.
+  rules_of_thumb: >
+    With 2 treatments, 3 to 4 replicates is usually workable. With 3 or 4
+    treatments, 6 replicates is a better target. The calculator on this page
+    reports the residual degrees of freedom your proposal gives, so you can see
+    the effect of adding or removing a replicate rather than relying on a rule.
+  randomisation: >
+    Every replicate should be randomised independently. If you are running more
+    than one trial with the same treatments, randomise each trial separately
+    rather than reusing a layout.
+  demonstration_replicates: >
+    If you intend to lay out one replicate for a field day with treatments in
+    order of rate, that replicate is not randomised and is not a valid replicate.
+    It should be excluded from the analysis and from your degrees of freedom
+    count. Anything you want to analyse must be randomised appropriately -
+    including blocking factors such as time of sowing, which must themselves be
+    randomised to be analysable.
+  too_big: >
+    If the replication needed for your treatment structure is out of reach, that
+    is worth knowing now. It usually means addressing the questions through two
+    or more simpler trials rather than one trial that cannot answer any of them
+    well.
+
+responses:
+  what_is_a_response: >
+    A response is an outcome you record in order to answer a question - grain
+    yield, plant establishment, disease severity. Each distinct response is a
+    separate analysis, so list every one.
+  data_type: >
+    Data type shapes the modelling approach. Counts, proportions, binary outcomes
+    and scores usually call for different distributions to continuous
+    measurements, and they are more sensitive to how sampling is done. Recording
+    the type now avoids discovering at analysis time that the design does not
+    suit the data.
+  sampling: >
+    Describe how the locations or individuals measured within each plot are
+    chosen - the actual procedure, not just that it is random. "Two 1 m2 quadrats
+    per plot at randomly generated coordinates" is a procedure. "Random" is not.
+  repeated_measures: >
+    If a response is measured more than once over time, say so and give the
+    timing. Repeated measurements change the structure of the data and the model
+    needed, and they are frequently missed until analysis.
+
+questions:
+  purpose: >
+    You described what the trial is investigating in the trial aim, and listed
+    its factors and responses. This section confirms the specific questions the
+    trial will answer, built from what you have already entered so that the
+    design and the questions stay aligned.
+  estimable_only: >
+    Your design can only estimate effects involving the factors you have listed.
+    If something you want to know cannot be built here, the design as described
+    cannot answer it. That is far better to discover now than after the season,
+    and it usually means adding a factor, or accepting that the question belongs
+    to a different trial.
+  answer_type_matters: >
+    The kind of answer matters as much as the effect. Testing whether a
+    difference exists, finding an optimum, and identifying a threshold are
+    different analyses even for the same factor and response, and they need
+    different numbers and placements of levels.
+
+implementation:
+  one_row_each: >
+    Record every unique implementation: one row per site per year. Sites and
+    seasons determine whether results can be combined across environments, and
+    the number of rows here determines how many site-by-year implementations each
+    trial has.
+  no_site_names: >
+    Sites are not named or labelled here. The number of rows establishes how many
+    environments the trial runs in, which is what shapes the analysis; where those
+    environments actually are belongs with your own project documentation.
+  replication_varies: >
+    Record the replication actually used at each site. Unequal replication across
+    sites is common and workable, but it is not the same analysis as a balanced
+    design and needs to be known in advance.
+  deviations: >
+    Record anything that differed from the plan, or conditions affecting the
+    data - waterlogging, machinery incidents, a block lost to pest damage. What
+    looks like a footnote at the time is often what explains an odd result later.
+
+summary:
+  purpose: >
+    This summarises the scale and structure of what you have described. It is not
+    a score of how good the design is - it is a description of what the design
+    involves, so you can see at a glance whether the trial you have planned is
+    the trial you meant to plan.

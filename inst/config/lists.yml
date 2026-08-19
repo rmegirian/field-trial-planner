@@ -1,0 +1,64 @@
+# Controlled vocabularies ------------------------------------------------------
+# Every dropdown in the app reads from here. Adding a layout or a data type is a
+# YAML edit, not a code change.
+
+yes_no:
+  - Yes
+  - No
+
+data_type:
+  - Continuous
+  - Count
+  - Proportion
+  - Binary
+  - Ordinal
+  - Time-to-event
+
+layout:
+  - Randomised complete block
+  - Split-plot
+  - Split-split plot
+  - Strip plot
+  - Alpha design
+  - Augmented design
+  - Row-column design
+  - Completely randomised
+  - Not yet decided
+
+effect_type:
+  - Main effect
+  - Two-way interaction
+  - Three-way interaction
+
+answer_type:
+  - Difference between levels
+  - Optimum or dose-response
+  - Threshold
+  - Stability across environments
+
+support_level:
+  - Not required
+  - Review existing design
+  - Design to be done for us
+  - Unsure
+
+# Question sentence templates -------------------------------------------------
+# Keyed by effect_type then answer_type. {factors} and {response} are filled in
+# from the row. Keeping these as config means the phrasing can be tuned by
+# whoever owns the wording, without touching R.
+question_templates:
+  Main effect:
+    Difference between levels: "Does {factors} affect {response}?"
+    Optimum or dose-response: "What level of {factors} maximises {response}?"
+    Threshold: "At what level of {factors} does {response} cross the target threshold?"
+    Stability across environments: "Is the effect of {factors} on {response} consistent across environments?"
+  Two-way interaction:
+    Difference between levels: "Does the interaction between {factors} affect {response}?"
+    Optimum or dose-response: "What combination of {factors} maximises {response}?"
+    Threshold: "At what combination of {factors} does {response} cross the target threshold?"
+    Stability across environments: "Is the interaction between {factors} on {response} consistent across environments?"
+  Three-way interaction:
+    Difference between levels: "Does the three-way interaction between {factors} affect {response}?"
+    Optimum or dose-response: "What combination of {factors} maximises {response}?"
+    Threshold: "At what combination of {factors} does {response} cross the target threshold?"
+    Stability across environments: "Is the three-way interaction between {factors} on {response} consistent across environments?"

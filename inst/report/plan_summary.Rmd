@@ -1,0 +1,185 @@
+---
+title: "`r params$config$app$app_name` — trial plan"
+date: "`r format(Sys.Date(), '%d %B %Y')`"
+output:
+  html_document:
+    self_contained: true
+    theme: null
+    highlight: null
+    css: summary.css
+params:
+  state: NULL
+  config: NULL
+  issues: NULL
+  profile: NULL
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+state   <- params$state
+config  <- params$config
+issues  <- params$issues
+profile <- params$profile
+
+# A small helper so an unanswered field reads as unanswered rather than as "NA".
+blank <- function(x, placeholder = "_Not recorded_") {
+  if (length(x) == 0 || is.na(x) || !nzchar(trimws(as.character(x)))) placeholder else as.character(x)
+}
+
+kbl <- function(df, ...) {
+  df[] <- lapply(df, function(col) ifelse(is.na(col), "", as.character(col)))
+  knitr::kable(df, ...)
+}
+```
+
+## `r blank(state$project$project_title, "Untitled project")`
+
+**Overall objective.** `r blank(state$project$project_objective)`
+
+This plan describes `r nrow(state$trials)` trial(s), `r nrow(state$factors)` treatment
+factor(s) and `r nrow(state$responses)` response variable(s) across
+`r nrow(state$implementations)` site-by-year implementation(s).
+
+```{r privacy, results = "asis"}
+cat("<p class='note'>", config$app$privacy_note, "</p>", sep = "")
+```
+
+---
+
+```{r trials, results = "asis"}
+for (id in names(profile)) {
+  p <- profile[[id]]
+  trial <- state$trials[state$trials$trial_id == id, ]
+
+  cat("\n## Trial ", id, " — ", blank(trial$trial_name, "unnamed"), "\n\n", sep = "")
+  cat("**Aim.** ", blank(trial$trial_aim), "\n\n", sep = "")
+
+  # Design at a glance ------------------------------------------------------
+  df_lo <- p$error_df_range[1]; df_hi <- p$error_df_range[2]
+  df_txt <- if (is.na(df_lo)) "not yet determined" else
+    if (identical(df_lo, df_hi)) as.character(df_lo) else paste0(df_lo, " to ", df_hi)
+
+  cat("<div class='at-a-glance'>\n")
+  cat("<div><span class='n'>", p$n_factors, "</span><span class='l'>factors</span></div>\n", sep = "")
+  cat("<div><span class='n'>", blank(p$n_treatments, "&mdash;"), "</span><span class='l'>treatments</span></div>\n", sep = "")
+  cat("<div><span class='n'>", blank(p$total_plots, "&mdash;"), "</span><span class='l'>plots in total</span></div>\n", sep = "")
+  cat("<div><span class='n'>", p$n_responses, "</span><span class='l'>responses</span></div>\n", sep = "")
+  cat("<div><span class='n'>", p$n_implementations, "</span><span class='l'>implementations</span></div>\n", sep = "")
+  cat("<div><span class='n'>", df_txt, "</span><span class='l'>residual df</span></div>\n", sep = "")
+  cat("</div>\n\n")
+
+  # Treatment structure -----------------------------------------------------
+  f <- state$factors[state$factors$trial_id == id, ]
+  if (nrow(f) > 0) {
+    cat("### Treatment structure\n\n")
+    for (i in seq_len(nrow(f))) {
+      lv <- state$levels[state$levels$factor_id == f$factor_id[i], ]
+      lv <- lv[order(lv$level_no), ]
+      cat("**", blank(f$factor_name[i]), "** — ", nrow(lv), " level(s)\n\n", sep = "")
+      if (nrow(lv) > 0) {
+        cat(paste0("- ", ifelse(is.na(lv$level_desc), "_not described_", lv$level_desc)),
+            sep = "\n")
+        cat("\n\n")
+      }
+    }
+    if (!is.na(p$n_treatments)) {
+      cat("Combining these gives **", p$n_treatments, " treatment(s)**.\n\n", sep = "")
+    }
+  }
+
+  # Responses ---------------------------------------------------------------
+  r <- state$responses[state$responses$trial_id == id, ]
+  if (nrow(r) > 0) {
+    cat("### What is measured\n\n")
+    print(kbl(
+      data.frame(
+        Response = r$response_name, Units = r$units, `Data type` = r$data_type,
+        Method = r$measurement_method, `Sampling within plot` = r$sampling_within_unit,
+        Repeated = r$repeated_measures, Timing = r$measurement_timing,
+        check.names = FALSE
+      )
+    ))
+    cat("\n\n")
+  }
+
+  # Questions ---------------------------------------------------------------
+  q <- state$questions[state$questions$trial_id == id, ]
+  if (nrow(q) > 0) {
+    cat("### Questions this trial is intended to answer\n\n")
+    for (i in seq_len(nrow(q))) {
+      cat("- ", blank(q$question_text[i], "_question not yet complete_"),
+          "  \n  <span class='meta'>", blank(q$effect_type[i], "?"), " · ",
+          blank(q$answer_type[i], "?"), "</span>\n", sep = "")
+    }
+    cat("\n")
+  }
+
+  # Implementation ----------------------------------------------------------
+  if (nrow(p$implementations) > 0) {
+    cat("### Where and when\n\n")
+    im <- p$implementations
+    impl <- state$implementations[match(im$impl_id, state$implementations$impl_id), ]
+    print(kbl(
+      data.frame(
+        Year = im$year, Replicates = im$n_reps,
+        Plots = im$n_plots, `Residual df` = im$error_df,
+        Layout = impl$layout, `Notes` = impl$notes,
+        check.names = FALSE
+      )
+    ))
+    cat("\n\n")
+  }
+
+  # Design features ---------------------------------------------------------
+  if (length(p$drivers) > 0) {
+    labels <- c(
+      multi_factor = "more than one treatment factor",
+      interaction = "an interaction is of interest",
+      three_way_interaction = "a three-way interaction is of interest",
+      multi_site = "run at more than one site",
+      multi_year = "run across more than one year",
+      non_standard_response = "a response that is not continuous",
+      repeated_measures = "a response measured repeatedly over time",
+      restricted_layout = "a layout that restricts randomisation",
+      advanced_claim = "a question needing more than a test of difference",
+      unbalanced_replication = "replication differs between implementations",
+      low_error_df = "replication leaving few residual degrees of freedom"
+    )
+    cat("### Features that shape the analysis\n\n")
+    cat(paste0("- ", labels[p$drivers]), sep = "\n")
+    cat("\n\n**", p$band, ".** ", p$band_note, "\n\n", sep = "")
+  }
+
+  cat("\n<div class='page-break'></div>\n\n")
+}
+```
+
+## Points to discuss
+
+```{r issues, results = "asis"}
+if (nrow(issues) == 0) {
+  cat("Nothing in this plan contradicts itself. That is not the same as the design ",
+      "being the right one for the questions — that is what the conversation is for.\n", sep = "")
+} else {
+  wording <- c(problem = "Needs resolving", check = "Worth checking",
+               note = "Worth discussing")
+  for (sev in FTP_SEVERITIES) {
+    part <- issues[as.character(issues$severity) == sev, ]
+    if (nrow(part) == 0) next
+    cat("\n### ", wording[[sev]], "\n\n", sep = "")
+    for (i in seq_len(nrow(part))) {
+      where <- if (is.na(part$entity_id[i])) part$section[i] else
+        paste0(part$section[i], " · ", part$entity_id[i])
+      cat("- <span class='where'>", where, "</span> ", part$message[i], "\n", sep = "")
+    }
+    cat("\n")
+  }
+}
+```
+
+---
+
+```{r footer, results = "asis"}
+cat("<p class='note'>", config$app$export_instruction, "</p>", sep = "")
+```

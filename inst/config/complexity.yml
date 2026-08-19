@@ -1,0 +1,64 @@
+# Design profile ---------------------------------------------------------------
+#
+# Reports what is structurally true about a design: how many treatments, plots,
+# analyses and sites it involves, and which features tend to make design and
+# analysis harder.
+#
+# The weights below are flat, because how much each feature matters depends on
+# who is doing the work and with what tools. Tune them to your own experience
+# rather than treating these as meaningful.
+
+weights:
+  multi_factor: 1
+  interaction: 1
+  three_way_interaction: 1
+  multi_site: 1
+  multi_year: 1
+  non_standard_response: 1
+  repeated_measures: 1
+  restricted_layout: 1
+  advanced_claim: 1
+  unbalanced_replication: 1
+  low_error_df: 1
+
+# Score bands used for the wording in the summary. These describe the shape of
+# the design, not how good it is.
+bands:
+  - label: Straightforward
+    max_score: 2
+    note: >
+      A design of this shape is usually analysed with standard methods, and what
+      it can show follows directly from the treatment structure.
+  - label: Moderate
+    max_score: 5
+    note: >
+      Several features here shape the analysis. Each is routine on its own, but
+      they need to be settled before the trial is implemented rather than after.
+  - label: Involved
+    max_score: 999
+    note: >
+      This design combines features that interact with one another, so decisions
+      made in one part constrain what is possible in another. Changes are much
+      cheaper now than once the trial is in the ground.
+
+# Which features are treated as restricting the randomisation. Split, strip and
+# augmented layouts all constrain what can be estimated at which stratum.
+restricted_layouts:
+  - Split-plot
+  - Split-split plot
+  - Strip plot
+  - Augmented design
+
+# Data types whose analysis usually departs from a standard linear model.
+non_standard_data_types:
+  - Count
+  - Proportion
+  - Binary
+  - Ordinal
+  - Time-to-event
+
+# Answer types that require more than a test of difference.
+advanced_answer_types:
+  - Optimum or dose-response
+  - Threshold
+  - Stability across environments
