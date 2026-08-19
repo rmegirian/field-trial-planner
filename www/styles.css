@@ -1,0 +1,210 @@
+/* Field Trial Planner ------------------------------------------------------- */
+
+:root {
+  --ftp-ink: #1c1f1d;
+  --ftp-muted: #5c6360;
+  --ftp-rule: #dde1de;
+  --ftp-accent: #3d6b52;
+  --ftp-wash: #f4f7f4;
+  --ftp-amber: #8a6d3b;
+  --ftp-amber-wash: #fdf7ec;
+}
+
+body { color: var(--ftp-ink); }
+
+.ftp-main {
+  max-width: 46rem;
+  padding: 0.5rem 0.5rem 4rem;
+}
+
+/* Step heading -------------------------------------------------------------- */
+.ftp-step-eyebrow {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  font-weight: 600;
+  color: var(--ftp-accent);
+  margin-bottom: 0.15rem;
+}
+.ftp-step-title { font-size: 1.7rem; font-weight: 600; margin: 0 0 0.5rem; }
+.ftp-h3 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  margin: 2.25rem 0 0.75rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--ftp-rule);
+}
+/* Two paragraphs of intro, so kept close to body size rather than enlarged. */
+.ftp-lede { font-size: 1rem; color: var(--ftp-muted); margin-bottom: 0.9rem; }
+.ftp-lede:last-of-type { margin-bottom: 1.75rem; }
+
+/* Why it matters ------------------------------------------------------------ */
+.ftp-why {
+  background: var(--ftp-wash);
+  border-left: 3px solid var(--ftp-accent);
+  border-radius: 0 4px 4px 0;
+  padding: 0.85rem 1.1rem;
+  margin: 0 0 1.75rem;
+}
+.ftp-why-title {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 600;
+  color: var(--ftp-accent);
+  margin-bottom: 0.3rem;
+}
+.ftp-why p { margin: 0; font-size: 0.94rem; }
+
+.ftp-note {
+  background: var(--ftp-wash);
+  border: 1px solid var(--ftp-rule);
+  border-radius: 4px;
+  padding: 0.8rem 1rem;
+  font-size: 0.9rem;
+  color: var(--ftp-muted);
+  margin: 1.25rem 0;
+}
+
+/* For the statement on the Start page that someone might need to have noticed. */
+.ftp-note-strong {
+  border-left: 3px solid var(--ftp-accent);
+  color: var(--ftp-ink);
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+}
+
+/* The app name doubles as the Start page heading, so it carries no eyebrow. */
+.ftp-app-title { margin-bottom: 1rem; }
+
+.ftp-nudge {
+  background: var(--ftp-amber-wash);
+  border-left: 3px solid var(--ftp-amber);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.88rem;
+  color: var(--ftp-amber);
+  margin-top: 0.5rem;
+  border-radius: 0 3px 3px 0;
+}
+
+/* Section map on the welcome screen ----------------------------------------- */
+.ftp-map { border-top: 1px solid var(--ftp-rule); }
+.ftp-map-row {
+  display: grid;
+  grid-template-columns: 15rem 1fr;
+  gap: 1.25rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--ftp-rule);
+}
+.ftp-map-step { display: flex; gap: 0.6rem; align-items: baseline; }
+.ftp-map-num {
+  flex: 0 0 1.4rem;
+  height: 1.4rem;
+  border-radius: 50%;
+  background: var(--ftp-accent);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.ftp-map-label { font-weight: 600; }
+.ftp-map-provide { font-size: 0.84rem; color: var(--ftp-muted); }
+.ftp-map-matters { font-size: 0.92rem; }
+
+@media (max-width: 45rem) {
+  .ftp-map-row { grid-template-columns: 1fr; gap: 0.35rem; }
+}
+
+/* Fields -------------------------------------------------------------------- */
+.ftp-fields { margin: 1.5rem 0; }
+.ftp-field { margin-bottom: 1.75rem; }
+.ftp-label { display: block; font-weight: 600; }
+.ftp-hint {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--ftp-muted);
+  margin-bottom: 0.15rem;
+}
+.form-control { border-color: var(--ftp-rule); }
+.form-control:focus {
+  border-color: var(--ftp-accent);
+  box-shadow: 0 0 0 0.2rem rgba(61, 107, 82, 0.15);
+}
+
+/* Example aside ------------------------------------------------------------- */
+.ftp-example {
+  border: 1px dashed var(--ftp-rule);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  font-size: 0.88rem;
+  color: var(--ftp-muted);
+  margin: 1rem 0;
+}
+.ftp-example-title {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+
+/* Step navigation ----------------------------------------------------------- */
+.ftp-step-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--ftp-rule);
+}
+.ftp-back { color: var(--ftp-muted); text-decoration: none; padding-left: 0; }
+.ftp-back:hover { color: var(--ftp-accent); }
+
+.ftp-start-actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin: 2rem 0 0.5rem;
+}
+
+/* Sidebar step list --------------------------------------------------------- */
+.ftp-steps { display: flex; flex-direction: column; gap: 0.1rem; }
+.ftp-step-link {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 0.6rem;
+  border-radius: 4px;
+  color: var(--ftp-ink);
+  text-decoration: none;
+  font-size: 0.92rem;
+}
+.ftp-step-link:hover { background: var(--ftp-wash); color: var(--ftp-ink); }
+.ftp-step-link.is-current {
+  background: var(--ftp-wash);
+  font-weight: 600;
+  box-shadow: inset 2px 0 0 var(--ftp-accent);
+}
+.ftp-step-link.is-pending .ftp-step-link-label { color: var(--ftp-muted); }
+
+.ftp-dot {
+  flex: 0 0 auto;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  border: 1px solid var(--ftp-accent);
+}
+.ftp-dot-empty { background: transparent; border-color: #c3ccc6; }
+.ftp-dot-started { background: #b9d2c4; border-color: #b9d2c4; }
+.ftp-dot-ready { background: var(--ftp-accent); }
+
+.ftp-plan-controls .btn { font-size: 0.88rem; }
+.ftp-sidebar .form-group { margin-bottom: 0.5rem; }
+
+/* Guidance accordion -------------------------------------------------------- */
+.ftp-guidance { margin-top: 2rem; }
+.ftp-guidance .accordion-button { font-size: 0.92rem; font-weight: 600; }
+.ftp-guidance .accordion-body { font-size: 0.92rem; }

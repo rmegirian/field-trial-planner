@@ -60,8 +60,12 @@ Rscript tests/testthat.R    # 187 tests
 | `R/fct_validate.R` | Cross-section consistency checks. |
 | `R/fct_report.R` | Renders the HTML summary. |
 | `R/fct_example.R` | The worked example, which is also the test fixture. |
+| `R/fct_steps.R` | The workflow steps, and how much of each has been filled in. |
+| `R/mod_*.R` | One module per step: its inputs, its guidance, its navigation. |
+| `R/utils_ui.R` | Shared interface pieces used across the steps. |
 | `inst/config/` | Wording, vocabularies, guidance copy, profile weights. |
 | `inst/report/` | Summary template and stylesheet. |
+| `www/` | Stylesheet for the app itself. |
 
 ## Export format
 
@@ -99,10 +103,15 @@ configuration outside the app directory.
 
 ## Status
 
-Foundations are complete and tested: data model, configuration, validation,
-design metrics, CSV round trip, HTML summary. The guided section-by-section
-interface is the next piece of work — `app.R` currently exercises the machinery
-rather than presenting the workflow.
+Under development.
+
+The foundations are complete and tested: data model, configuration, validation,
+design metrics, CSV round trip and HTML summary.
+
+The interface is being built step by step. The Start and Project steps are done;
+the remaining steps are reachable and describe what they will ask for, but do
+not yet collect it. A plan loaded from a file keeps everything, including the
+parts no step has been built for yet.
 
 ## Licence
 

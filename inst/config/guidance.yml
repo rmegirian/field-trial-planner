@@ -3,6 +3,119 @@
 # This file is the teaching half of the tool. It is data rather than R strings so
 # that whoever owns the wording can revise it without touching code.
 
+# The Start page. Each key is a list, so every item renders as its own
+# paragraph and the copy can be restructured without touching R.
+welcome:
+  what_this_is:
+    - >
+      What's possible during analysis is largely determined before any data are
+      collected. Decisions made during research planning shape the data that
+      will be generated, which in turn affects what analyses those data can or
+      can't support, as well as what, if any, conclusions can be drawn from them.
+    - >
+      This tool is designed to help plan a trial so that its objectives,
+      treatments, measurements, replication and analysis are aligned to produce
+      data capable of answering its research questions. It works through the key
+      design decisions, explaining the implications of each as you go. In this
+      way, it brings consideration of analysis into research planning from the
+      start, while generating a downloadable record of your plan that can be
+      revisited, refined and shared over time.
+
+  how_it_works_title: How the planner works
+  how_it_works:
+    - >
+      The planner is divided into sections covering key decisions involved in
+      planning a field trial, from defining what you want to learn through to
+      specifying treatments, measurements and observations, replication, and
+      implementation considerations.
+    - >
+      Different research objectives require different considerations in the
+      overall design of an experiment. Rather than being a set of independent
+      decisions, the research questions, treatments, measurements, replication,
+      layout and analysis are interconnected, shaping and constraining one
+      another. They are separated into sections here to make a complex task
+      easier to work through, but a decision in one area can change what is
+      possible or appropriate in another.
+    - >
+      As you work through each section, you may find that a decision you have
+      already made needs to be reconsidered in light of decisions made later.
+      This is a normal part of experimental design. The process is less about
+      making good or bad decisions in isolation and more about considering them
+      together as a single experimental design, refining them as you develop a
+      clearer understanding of how they may shape or constrain one another. For
+      this reason, experimental design is an iterative process rather than a
+      linear, step-by-step process.
+    - >
+      The goal is to balance what you want to learn with what can realistically
+      and reliably be tested, so that the resulting data can support the
+      analyses needed to answer your research questions.
+
+  privacy_title: Privacy and keeping your plan
+  privacy:
+    - >
+      Nothing you enter is stored by the app. Your answers exist only in your
+      browser session on your computer and are not sent or stored elsewhere. The
+      only way to keep a copy of your plan is to download it.
+    - >
+      Closing the browser will discard your current session, so download your
+      plan whenever you pause or finish working. You can reload a downloaded
+      plan from the sidebar at any time to continue where you left off.
+
+# Per-step copy. `matters` is the "why this matters" callout at the top of each
+# section; `provide` is what that section asks for. Not shown on the Start page:
+# the reasoning belongs where there is context for it.
+sections:
+    - id: project
+      provide: The working title and the overall objective
+      matters: >
+        The project objective is the standard every other decision is judged
+        against. It tells us what a successful outcome looks like.
+    - id: trials
+      provide: One entry per trial, with its aim
+      matters: >
+        The trial aim determines what must be varied, what must be measured and
+        what can be answered. Everything in the sections that follow is derived
+        from it.
+    - id: factors
+      provide: One entry per treatment factor, with its levels
+      matters: >
+        Factors determine what comparisons can be made, which interactions can
+        be estimated, and how much replication is needed. The number of levels
+        determines whether you can see a difference, a curve, or an optimum.
+    - id: replication
+      provide: Nothing - this step is a calculator
+      matters: >
+        Replication is what makes an effect distinguishable from background
+        variation at all. This shows what your treatment structure costs in
+        plots, and how much residual information each choice leaves you.
+    - id: responses
+      provide: One entry per response, with data type, method, sampling and timing
+      matters: >
+        Data type shapes the modelling approach - counts, proportions and scores
+        usually call for different distributions to continuous data, and are
+        more sensitive to how sampling is done. Each response is a separate
+        analysis.
+    - id: questions
+      provide: Each question, built from a response and the effect you care about
+      matters: >
+        Confirms which of the effects your design can estimate actually matter
+        to you, and what kind of answer you need - a difference, an optimum, a
+        threshold, or stability across environments. Questions are built from
+        the responses and factors you have already entered, so the design and
+        the questions stay aligned.
+    - id: implementation
+      provide: Every year and site each trial runs in, with replicates and deviations
+      matters: >
+        Sites and seasons determine whether results can be combined across
+        environments. Replication and deviations determine what precision is
+        achievable and whether the data are balanced.
+    - id: summary
+      provide: Nothing - this fills in automatically
+      matters: >
+        Summarises the scale and structure of what you have described, so you
+        can see whether the trial you have planned is the trial you meant to
+        plan.
+
 intro:
   why_iterative: >
     Different trial aims require different considerations in the overall design
