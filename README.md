@@ -1,123 +1,83 @@
 # Field Trial Planner
 
-A Shiny app for planning agricultural field experiments. It works through the
-decisions that determine what a trial can show, and explains the reasoning as it
-goes, so the plan and the understanding of it are built at the same time.
+A successful field trial generates data that can support appropriate analyses capable of addressing the research questions the trial is intended to answer.
 
-## What it does
+Not everything that affects the success of a trial or experiment can be controlled. Environmental and other contextual factors can affect what happens during implementation and what data are ultimately obtained. Planning a trial before it is conducted nevertheless provides an opportunity to examine the elements that can be planned in advance and assess whether the different parts of the proposed design are coherent and aligned with what the trial is intended to achieve.
 
-Covers the design one section at a time:
+The research question determines what needs to be learned from the trial and constrains the analyses that could appropriately be used to answer it. Because the decisions made before and during data collection shape the resulting data, the experimental design needs to be structured so that the data generated contain the information required for at least one appropriate analytical approach.
 
-- the trial aim
-- treatment factors and their levels
-- replication, with residual degrees of freedom calculated as you go
-- response variables, their data types, sampling and timing
-- research questions, built from the factors and responses already entered
-- implementation across sites and years
+| Design decision | What it determines about the data | Why it matters for analysis |
+|---|---|---|
+| **Treatment factors and levels** | Which conditions are compared and which combinations of conditions are represented | Determines which treatment effects and interactions can be estimated |
+| **Randomisation and layout** | How treatments are assigned to experimental units and how observations are related to one another | Determines the experimental unit and the sources of variation that can be separated |
+| **Replication** | How many independent experimental units contribute information to each comparison | Affects the ability to estimate variation and the precision of comparisons |
+| **Sampling** | Which units are observed, how often, and how observations relate to the experimental units | Determines what each observation represents and whether observations can appropriately be treated as independent |
+| **Measurement and timing** | What is measured, on what scale, and when | Determines the type and structure of the resulting response data and what changes can be assessed |
+| **Sites, years and other implementations** | How the trial is repeated across environments or conditions | Determines whether and how variation between environments can be assessed |
 
-The sections are a way to make a complex task tractable, not a sequence.
-Treatments, replication, measurements and questions all shape one another, so a
-decision made in one section regularly sends you back to revise an earlier one —
-adding a factor changes the replication you need, and finding the replication
-unaffordable changes which questions the trial can carry. Experimental design is
-iterative rather than step-by-step, and the app is built to be returned to
-rather than completed once.
+These decisions are interconnected, with changes in one having flow-on effects on others. There is therefore not necessarily a single right or wrong decision at each stage. Rather, the important question is whether the decisions work together as a coherent overall design that is aligned with the objectives of the trial and capable of producing data that can support the intended analyses.
 
-As you go it checks the plan against itself and reports what the design
-structurally involves — treatments, plots, analyses, interactions, restricted
-randomisation. Typical findings: a question asked about a factor the trial never
-varied, a factor declared with six levels and two described, five treatments at
-four replicates leaving 12 residual degrees of freedom where 15 was the target.
+For example, adding a treatment factor may increase the number of treatment combinations and change the replication required, while constraints on available resources may require the treatment structure, replication or research questions to be reconsidered. Planning provides an opportunity to identify these issues and revise the question or design before the trial is conducted.
 
-Answers are held in the browser session only. Nothing is written to a server,
-and everything leaves as two downloads: a CSV that reloads into the app, and a
-self-contained HTML summary.
+Everything that occurs in the lead up to and during data collection determines important properties of the resulting data: what individual observations represent, how observations are related to one another, what sources of variation can be distinguished, and what can subsequently be estimated from the data.
 
-## Running it
+The resulting plan therefore has a purpose beyond guiding implementation. It documents how the data are intended to be generated and provides information that is needed to interpret and analyse those data appropriately. An analyst cannot determine an appropriate analysis from the observed values alone; they also need to understand how those observations were generated through the experimental design and data collection process.
 
-```r
-# R 4.4 or later
-install.packages(c("shiny", "bslib", "yaml", "readr", "tibble", "rmarkdown"))
-shiny::runApp()
-```
+The relationship can therefore be thought of as:
 
-Rendering the HTML summary needs pandoc. Shiny Server and shinyapps.io provide
-it; locally, an RStudio or Quarto install supplies one and the app finds it.
+research question ↔ appropriate analysis ↔ experimental design ↔ data structure ↔ valid inference
 
-```sh
-Rscript tests/testthat.R    # 187 tests
-```
+The Field Trial Planner helps users work through the decisions that shape how a trial will be conducted and, consequently, the structure and information content of the resulting data. It helps users examine whether these elements fit together and identify potential inconsistencies or limitations before the trial is conducted.
 
-## Repository layout
+# What it does
 
-| Path | Purpose |
-|---|---|
-| `R/fct_schema.R` | The data model. Export, import, validation and the UI all derive from it, so a field is added in one place. |
-| `R/fct_config.R` | Loads the YAML configuration, merging any local overrides. |
-| `R/fct_transfer.R` | Long-format CSV export and import. |
-| `R/fct_metrics.R` | Treatments, plots, residual degrees of freedom, design profile. |
-| `R/fct_questions.R` | Builds research question sentences; flags questions the design cannot answer. |
-| `R/fct_validate.R` | Cross-section consistency checks. |
-| `R/fct_report.R` | Renders the HTML summary. |
-| `R/fct_example.R` | The worked example, which is also the test fixture. |
-| `R/fct_steps.R` | The workflow steps, and how much of each has been filled in. |
-| `R/mod_*.R` | One module per step: its inputs, its guidance, its navigation. |
-| `R/utils_ui.R` | Shared interface pieces used across the steps. |
-| `inst/config/` | Wording, vocabularies, guidance copy, profile weights. |
-| `inst/report/` | Summary template and stylesheet. |
-| `www/` | Stylesheet for the app itself. |
+The planner works through the major components of a field trial design:
 
-## Export format
+trial objective, aim, and research question(s)
+treatment factors and their levels
+replication, including calculation of residual degrees of freedom to help assess whether the proposed design provides sufficient replication for the intended comparisons
+response variables, including their data types, sampling approach and timing
+research questions constructed from the factors and responses entered, which can be compared against the stated research questions
+repeated implementations of the trial across sites and/or years
+a summary of the resulting design
 
-One row per recorded fact:
+The sections are a way to make a complex task tractable, not a sequence. Treatments, replication, measurements and questions all influence one another, so a decision made in one section may require an earlier decision to be reconsidered.
 
-```csv
-section,entity_id,parent_id,field,value
-trials,E1,,trial_name,Nitrogen rate trial
-factors,E1_F1,E1,factor_name,Nitrogen rate
-factors,E1_F1,E1,n_levels,5
-levels,E1_F1_L1,E1_F1,level_desc,0 kg N/ha (nil applied)
-```
+For example, adding a treatment factor may change the number of treatment combinations and therefore the replication required, while finding that the available resources cannot support the proposed replication may require the research questions or design to be reconsidered.
 
-A trial has many factors and a factor has many levels, so a wide table would be
-mostly empty columns. This shape avoids that, stays readable in Excel, and
-pivots back into wide tables for analysis. The same file reloads into the app,
-which matters because plans get revised: the download and the save file are one
-thing rather than two.
+Experimental design is therefore iterative rather than simply step-by-step. The planner is intended to support this process of developing, checking and revising a proposed trial design.
 
-## Configuration
+As users work through the plan, the app checks the information entered against other parts of the proposed design and reports structural features that are relevant to subsequent analysis, including treatments, plots, interactions, replication and restricted randomisation.
 
-Wording, vocabularies and thresholds are YAML rather than R:
+These checks are intended to identify potential problems for review. They do not replace statistical or methodological review of the proposed trial.
 
-| File | Controls |
-|---|---|
-| `app.yml` | Names, wording, the residual df target, theme colours. |
-| `lists.yml` | Dropdown vocabularies and question sentence templates. |
-| `guidance.yml` | The explanatory copy shown alongside each section. |
-| `complexity.yml` | How the design profile is weighted and banded. |
+# Data and outputs
 
-Files of the same name in `inst/config/local/` are merged over the top, key by
-key, so a one-line file changes one thing and everything else falls through to
-the defaults. `options(FieldTrialPlanner.config_dir = )` moves the whole
-configuration outside the app directory.
+To maintain data privacy, information entered into the planner remains within
+the user's browser session. Answers are not written to or stored on a server,
+so the app does not retain a copy of the information entered.
 
-## Status
+When the planning process is complete, the information can be exported as two
+files:
+
+- **CSV** — contains the structured responses and can be reloaded into the app
+  to continue or revise the plan.
+- **HTML summary** — a self-contained summary of the proposed trial design that
+  can be shared with collaborators or analysts.
+
+Users are responsible for saving, storing and sharing the exported files in
+accordance with the requirements of their organisation and the sensitivity of
+the information they contain.
+
+# Status
 
 Under development.
 
-The foundations are complete and tested: data model, configuration, validation,
-design metrics, CSV round trip and HTML summary.
+The foundations are complete and tested: data model, configuration, validation, design metrics, CSV round trip and HTML summary.
 
-The interface is being built step by step. The Start and Project steps are done;
-the remaining steps are reachable and describe what they will ask for, but do
-not yet collect it. A plan loaded from a file keeps everything, including the
-parts no step has been built for yet.
+Licence
 
-## Licence
+Copyright (C) 2026 rmegirian. GNU General Public License v3.0 — see LICENSE.
 
-Copyright (C) 2026 rmegirian. GNU General Public License v3.0 — see
-[LICENSE](LICENSE).
-
-Free to use, copy, modify and share. If you distribute a modified version, it
-has to be under the same licence, with source available, so that it stays as
+Free to use, copy, modify and share. If you distribute a modified version, it has to be under the same licence, with source available, so that it stays as open as you found it.
 open as you found it.
