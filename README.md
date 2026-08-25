@@ -43,19 +43,18 @@ As users work through the plan, the app checks information entered in one part o
 These checks are intended to identify potential issues for review. They do not replace statistical or methodological review of the proposed trial, which may still be required where the design, response structure, or assumptions are complex.
 
 ## Data and outputs
-
 To maintain data privacy, information entered into the Planner remains within the user's browser session. Answers are not written to or stored on a server, so the app does not retain a copy of the information entered.
 
-Users are advised to download their plan as they work to avoid losing information if the browser session is closed or interrupted. The downloaded CSV file can be reloaded into the app at any time to continue or revise the plan.
+Users are advised to download their plan as they work to avoid losing information if the browser session is closed or interrupted. The downloaded CSV can be reloaded into the app at any time to continue or revise the plan.
 
-When the planning process is complete, the information can be exported as two files:
+When the planning process is complete, the plan can be exported as:
 
-- **CSV** - contains the structured responses and can be reloaded into the app to continue or revise the plan.
-- **HTML summary** - a self-contained summary of the proposed trial design that can be shared with collaborators or analysts.
+**CSV** - a machine-readable version of the structured responses for saving, reloading, or further processing.
+**HTML summary** - a self-contained summary of the proposed trial design that can be shared with collaborators or analysts.
 
-Users are responsible for saving, storing, and sharing the exported files in accordance with the requirements of their organisation and the sensitivity of the information they contain.
+Users are responsible for saving, storing, and sharing exported files in accordance with the requirements of their organisation and the sensitivity of the information they contain.
+
 ## Status
-
 Under development.
 
 The foundations are complete and tested: data model, configuration, validation, design metrics, CSV round trip and HTML summary.
