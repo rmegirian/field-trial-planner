@@ -10,15 +10,18 @@
 
 ftp_steps <- function() {
   list(
-    list(id = "welcome",        label = "Start",              number = NA),
-    list(id = "project",        label = "Project",            number = 1),
-    list(id = "trials",         label = "Trials",             number = 2),
-    list(id = "factors",        label = "Treatment factors",  number = 3),
-    list(id = "replication",    label = "Replication",        number = 4),
-    list(id = "responses",      label = "Measurements",       number = 5),
-    list(id = "questions",      label = "Research questions", number = 6),
-    list(id = "implementation", label = "Implementation",     number = 7),
-    list(id = "summary",        label = "Summary",            number = 8)
+    list(id = "welcome",        label = "Welcome",            number = NA),
+    # The id stays "project" because it is the section name in exported plan
+    # files; only the label shown to a user changes. This step now covers the
+    # project objective and the trials that serve it, so there is no separate
+    # trials step.
+    list(id = "project",        label = "Research Overview",  number = 1),
+    list(id = "factors",        label = "Treatment factors",  number = 2),
+    list(id = "replication",    label = "Replication",        number = 3),
+    list(id = "responses",      label = "Measurements",       number = 4),
+    list(id = "questions",      label = "Question confirmation", number = 5),
+    list(id = "implementation", label = "Implementation",     number = 6),
+    list(id = "summary",        label = "Summary",            number = 7)
   )
 }
 

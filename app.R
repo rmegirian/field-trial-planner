@@ -25,7 +25,13 @@ ui <- page_sidebar(
     heading_font = font_google("Source Sans 3", local = FALSE)
   ),
 
-  tags$head(tags$link(rel = "stylesheet", href = "styles.css")),
+  # A version stamp regenerated at each app start, so a restarted app is never
+  # served a browser-cached stylesheet from a previous edit.
+  tags$head(
+    tags$link(rel = "stylesheet",
+              href = paste0("styles.css?v=", as.integer(Sys.time()))),
+    tags$script(src = paste0("autosize.js?v=", as.integer(Sys.time())))
+  ),
 
   sidebar = sidebar(
     width = 290,

@@ -10,10 +10,6 @@
 #' @param lede One or two sentences setting up what the step is asking for.
 ftp_step_header <- function(step, lede = NULL) {
   htmltools::tagList(
-    htmltools::div(
-      class = "ftp-step-eyebrow",
-      if (!is.na(step$number)) paste("Step", step$number) else "Getting started"
-    ),
     htmltools::h2(class = "ftp-step-title", step$label),
     if (!is.null(lede) && nzchar(lede)) htmltools::p(class = "ftp-lede", lede)
   )

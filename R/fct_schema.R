@@ -71,9 +71,26 @@ ftp_schema <- function() {
       id_field = "trial_id",
       fields = list(
         ftp_field("trial_id", label = "Trial ID", required = TRUE),
-        ftp_field("trial_name", label = "Trial name", required = TRUE),
-        ftp_field("trial_aim", label = "Trial aim", required = TRUE, multiline = TRUE),
-        ftp_field("initial_questions", label = "Research questions you want answered",
+        ftp_field("trial_name", label = "Trial name"),
+        ftp_field("trial_aim", label = "Trial aim", required = TRUE, multiline = TRUE)
+      )
+    ),
+
+    # What each trial is intended to find out, in the researcher's own words.
+    # A trial usually has one or two; each should be a distinct thing to learn.
+    # Kept separate from `questions`, which is where these are later rebuilt
+    # from the factors and responses to check the design can actually estimate
+    # them.
+    research_questions = ftp_section(
+      key            = "research_questions",
+      title          = "Research questions",
+      id_field       = "rq_id",
+      parent_field   = "trial_id",
+      parent_section = "trials",
+      fields = list(
+        ftp_field("rq_id", label = "Question ID", required = TRUE),
+        ftp_field("trial_id", label = "Trial", required = TRUE),
+        ftp_field("question", label = "Research question", required = TRUE,
                   multiline = TRUE)
       )
     ),

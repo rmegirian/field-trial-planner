@@ -21,25 +21,17 @@ ftp_welcome_server <- function(id, plan, config, go_to) {
     welcome <- config$guidance$welcome
 
     output$header <- shiny::renderUI({
-      htmltools::tagList(
-        htmltools::h2(class = "ftp-step-title ftp-app-title", config$app$app_name),
-        ftp_paragraphs(welcome$what_this_is, class = "ftp-lede")
-      )
+      htmltools::h2(class = "ftp-step-title ftp-app-title", config$app$app_name)
     })
 
     output$body <- shiny::renderUI({
-      privacy <- as.character(unlist(welcome$privacy))
-
       htmltools::tagList(
-
-        htmltools::h3(class = "ftp-h3", welcome$how_it_works_title),
-        ftp_paragraphs(welcome$how_it_works),
-
-        htmltools::h3(class = "ftp-h3", welcome$privacy_title),
-        # The first statement gets the callout treatment; it is the one thing on
-        # this page someone might need to have noticed.
-        htmltools::div(class = "ftp-note ftp-note-strong", privacy[1]),
-        ftp_paragraphs(privacy[-1]),
+        # Blocks are rendered only if guidance.yml still defines them, so the
+        # copy can be restructured - a section added, dropped or reordered -
+        # without the page erroring.
+        ftp_welcome_block(welcome, "what_this_is", lede = TRUE),
+        ftp_welcome_block(welcome, "how_it_works"),
+        ftp_welcome_block(welcome, "privacy", callout_first = TRUE),
 
         htmltools::div(
           class = "ftp-start-actions",
@@ -53,6 +45,7 @@ ftp_welcome_server <- function(id, plan, config, go_to) {
 
     shiny::observeEvent(input$start, go_to("project"))
 
+
     shiny::observeEvent(input$example, {
       plan$state <- ftp_example_state()
       go_to("project")
@@ -62,4 +55,33 @@ ftp_welcome_server <- function(id, plan, config, go_to) {
       )
     })
   })
+}
+
+#' Render one titled block of the Start page
+#'
+#' Looks for `<key>_title` and `<key>` in the welcome config. Returns NULL when
+#' the block is absent, so removing a section from guidance.yml removes it from
+#' the page rather than breaking it.
+#'
+#' @param lede Style the paragraphs as the opening statement.
+#' @param callout_first Give the first paragraph the highlighted treatment, for
+#'   the one thing on the page a reader might need to have noticed.
+ftp_welcome_block <- function(welcome, key, lede = FALSE, callout_first = FALSE) {
+  paragraphs <- as.character(unlist(welcome[[key]]))
+  paragraphs <- paragraphs[nzchar(trimws(paragraphs))]
+  if (length(paragraphs) == 0) return(NULL)
+
+  title <- welcome[[paste0(key, "_title")]]
+
+  htmltools::tagList(
+    if (!is.null(title) && nzchar(title)) htmltools::h3(class = "ftp-h3", title),
+    if (callout_first) {
+      htmltools::tagList(
+        htmltools::div(class = "ftp-note ftp-note-strong", paragraphs[1]),
+        ftp_paragraphs(paragraphs[-1])
+      )
+    } else {
+      ftp_paragraphs(paragraphs, class = if (lede) "ftp-lede" else NULL)
+    }
+  )
 }

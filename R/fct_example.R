@@ -20,16 +20,23 @@ ftp_example_state <- function(schema = ftp_schema()) {
   )
 
   state$trials <- tibble::tribble(
-    ~trial_id, ~trial_name, ~trial_aim, ~initial_questions,
+    ~trial_id, ~trial_name, ~trial_aim,
     "E1", "Nitrogen rate trial",
     paste("To determine the nitrogen rate required to maximise wheat yield and",
           "grain protein content under different seasonal conditions."),
-    "How much nitrogen is needed, and does the answer change between seasons?",
     "E2", "Sowing depth by variety-herbicide trial",
     paste("To determine whether sowing depth affects wheat establishment and yield,",
           "and whether the response differs among commonly used variety and",
-          "herbicide combinations."),
-    "Can we sow deeper without losing establishment, and does it depend on variety?"
+          "herbicide combinations.")
+  )
+
+  state$research_questions <- tibble::tribble(
+    ~rq_id, ~trial_id, ~question,
+    "E1_RQ1", "E1",
+    paste("How does nitrogen rate affect wheat yield and grain protein under",
+          "different seasonal conditions?"),
+    "E2_RQ1", "E2",
+    "Does sowing depth affect establishment, and does the effect depend on variety?"
   )
 
   state$factors <- tibble::tribble(

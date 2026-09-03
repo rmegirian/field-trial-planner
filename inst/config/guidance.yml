@@ -6,56 +6,32 @@
 # The Start page. Each key is a list, so every item renders as its own
 # paragraph and the copy can be restructured without touching R.
 welcome:
+  # No title: the page heading is the app name, and the opening paragraphs
+  # follow it directly.
   what_this_is:
     - >
-      What's possible during analysis is largely determined before any data are
-      collected. Decisions made during research planning shape the data that
-      will be generated, which in turn affects what analyses those data can or
-      can't support, as well as what, if any, conclusions can be drawn from them.
+      What's possible during analysis is largely determined before any data are collected. 
+      The decisions made when planning and conducting a trial shape the data generated and, 
+      in turn, which analyses those data can support and what conclusions can be drawn from 
+      them.
     - >
-      This tool is designed to help plan a trial so that its objectives,
-      treatments, measurements, replication and analysis are aligned to produce
-      data capable of answering its research questions. It works through the key
-      design decisions, explaining the implications of each as you go. In this
-      way, it brings consideration of analysis into research planning from the
-      start, while generating a downloadable record of your plan that can be
-      revisited, refined and shared over time.
-
-  how_it_works_title: How the planner works
-  how_it_works:
-    - >
-      The planner is divided into sections covering key decisions involved in
-      planning a field trial, from defining what you want to learn through to
-      specifying treatments, measurements and observations, replication, and
-      implementation considerations.
-    - >
-      Different research objectives require different considerations in the
-      overall design of an experiment. Rather than being a set of independent
-      decisions, the research questions, treatments, measurements, replication,
-      layout and analysis are interconnected, shaping and constraining one
-      another. They are separated into sections here to make a complex task
-      easier to work through, but a decision in one area can change what is
-      possible or appropriate in another.
-    - >
-      As you work through each section, you may find that a decision you have
-      already made needs to be reconsidered in light of decisions made later.
-      This is a normal part of experimental design. The process is less about
-      making good or bad decisions in isolation and more about considering them
-      together as a single experimental design, refining them as you develop a
-      clearer understanding of how they may shape or constrain one another. For
-      this reason, experimental design is an iterative process rather than a
-      linear, step-by-step process.
-    - >
-      The goal is to balance what you want to learn with what can realistically
-      and reliably be tested, so that the resulting data can support the
-      analyses needed to answer your research questions.
-
+      The Field Trial Planner provides a structured way to work through key design decisions 
+      while developing a clearer understanding of how they are likely to shape or constrain one 
+      another. This provides an opportunity to consider and refine the plan as needed, 
+      supporting alignment between the research objective, design and analytical approach, while 
+      making it easier to recognise where further consideration or statistical or methodological 
+      input may be useful.
+  
   privacy_title: Privacy and keeping your plan
   privacy:
     - >
       Nothing you enter is stored by the app. Your answers exist only in your
       browser session on your computer and are not sent or stored elsewhere. The
       only way to keep a copy of your plan is to download it.
+    - >
+      You can download a copy of your plan at any time. This gives you a record of what you have 
+      worked through that can be shared with others involved in the trial or used as a basis 
+      for further statistical or methodological discussion or review.
     - >
       Closing the browser will discard your current session, so download your
       plan whenever you pause or finish working. You can reload a downloaded

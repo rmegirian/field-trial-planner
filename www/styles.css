@@ -26,7 +26,7 @@ body { color: var(--ftp-ink); }
   color: var(--ftp-accent);
   margin-bottom: 0.15rem;
 }
-.ftp-step-title { font-size: 1.7rem; font-weight: 600; margin: 0 0 0.5rem; }
+.ftp-step-title { font-size: 1.7rem; font-weight: 600; margin: 0 0 1.25rem; }
 .ftp-h3 {
   font-size: 1.05rem;
   font-weight: 600;
@@ -118,7 +118,9 @@ body { color: var(--ftp-ink); }
 }
 
 /* Fields -------------------------------------------------------------------- */
-.ftp-fields { margin: 1.5rem 0; }
+/* Extra space below the research objective, so the trials that follow read as a
+   separate part of the page rather than the next field in a list. */
+.ftp-fields { margin: 1.5rem 0 3rem; }
 .ftp-field { margin-bottom: 1.75rem; }
 .ftp-label { display: block; font-weight: 600; }
 .ftp-hint {
@@ -128,11 +130,80 @@ body { color: var(--ftp-ink); }
   color: var(--ftp-muted);
   margin-bottom: 0.15rem;
 }
+/* Text areas grow with their content (www/autosize.js). They open at the height
+   of their placeholder, so an untouched page stays compact. */
+.ftp-main textarea.form-control {
+  overflow-y: hidden;
+  resize: none;
+  min-height: 2.4rem;
+  transition: height 0.08s ease-out;
+}
+
+/* Examples are italic so they read as illustration rather than as content
+   someone has already entered. */
+.ftp-main .form-control::placeholder {
+  font-style: italic;
+  color: #9aa3a0;
+  opacity: 1;
+}
+
 .form-control { border-color: var(--ftp-rule); }
 .form-control:focus {
   border-color: var(--ftp-accent);
   box-shadow: 0 0 0 0.2rem rgba(61, 107, 82, 0.15);
 }
+
+/* Trial blocks -------------------------------------------------------------- */
+.ftp-trial {
+  border: 1px solid var(--ftp-rule);
+  border-left: 3px solid var(--ftp-accent);
+  border-radius: 0 4px 4px 0;
+  padding: 1rem 1.15rem 0.25rem;
+  margin-bottom: 1.1rem;
+  background: #fff;
+}
+.ftp-trial-head {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.25rem;
+}
+.ftp-remove {
+  font-size: 0.82rem;
+  color: var(--ftp-muted);
+  text-decoration: none;
+}
+.ftp-remove:hover { color: #a4443a; text-decoration: underline; }
+/* Name, aim and questions belong to one trial, so they sit closer to each other
+   than the trial block does to the objective above it. */
+.ftp-trial .ftp-field { margin-bottom: 0.75rem; }
+.ftp-trial .ftp-field:last-child { margin-bottom: 0.35rem; }
+.ftp-trial .form-group { margin-bottom: 0.2rem; }
+.ftp-trial .ftp-hint { margin-bottom: 0.3rem; }
+.ftp-trial .ftp-label { margin-bottom: 0.1rem; }
+.ftp-add { font-size: 0.88rem; margin-bottom: 0.5rem; }
+.ftp-add-note { margin: 0.25rem 0 0.6rem; }
+
+/* Repeatable research questions within a trial */
+.ftp-question { position: relative; margin-bottom: 0.35rem; }
+.ftp-question .ftp-remove {
+  position: absolute;
+  right: 0;
+  bottom: 0.55rem;
+  font-size: 0.78rem;
+  background: #fff;
+  padding-left: 0.4rem;
+}
+/* Flush with the left edge of the text boxes above it, so the column of fields
+   reads as one block rather than the control floating free. */
+.ftp-main a.ftp-add-question {
+  display: inline-block;
+  margin: 0.1rem 0 0;
+  padding: 0;
+  font-size: 0.85rem;
+  text-decoration: none;
+  color: var(--ftp-accent);
+}
+.ftp-main a.ftp-add-question:hover { text-decoration: underline; }
 
 /* Example aside ------------------------------------------------------------- */
 .ftp-example {

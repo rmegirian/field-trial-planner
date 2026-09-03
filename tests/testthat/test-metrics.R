@@ -24,7 +24,7 @@ test_that("treatments are the product of level counts across factors", {
 test_that("a trial with no factors yet reports NA rather than 1", {
   state <- ftp_new_state()
   state$trials <- tibble::tibble(trial_id = "T1", trial_name = "x",
-                                 trial_aim = "y", initial_questions = NA_character_)
+                                 trial_aim = "y")
   expect_true(is.na(ftp_n_treatments(state, "T1")))
 })
 
